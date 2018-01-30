@@ -23,6 +23,7 @@ has 'profile_form' => (
     my $profile_form = $self->schema->resultset('FormSubmission')->search(
                     {
                       'data' => \["->>'id' = ?", $self->id],
+                      'data' => \["->>'form' = 'profile'"],
                     },
                     {
                       'order_by' => { -desc => 'id' },

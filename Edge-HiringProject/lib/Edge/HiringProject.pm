@@ -40,6 +40,7 @@ post '/submit/:form_name' => sub {
     if ($form) {
       my $submission = {
           id => session->id,
+          form => $form_name,
         };
       foreach my $field (@{$form->data->{fields}}) {
         $submission->{$field->{name}} = body_parameters->get($field->{name});
