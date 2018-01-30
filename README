@@ -1,8 +1,9 @@
 Project for developer candidates
 
-1. Clone the repository
+1. Fork the repository
 2. run vagrant up from root of the repository
 3. vagrant ssh
 4. cd /vagrant/Edge-HiringProject
 5. plackup -p 7653 -R ./lib bin/app.psgi
 6. go to http://localhost:7653/ in your browser
+7. Submit a pull request of your completed work!
