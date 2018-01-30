@@ -67,6 +67,7 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     locale-gen en_CA.UTF-8
+    apt-get update
     apt-get -y install libdbi-perl libdbd-pg-perl postgresql-9.3 unzip
     curl -L https://cpanmin.us | perl - App::cpanminus
     cpanm -n Dancer2 DBIx::Class SQL::Translator Dancer2::Plugin::DBIC JSON::XS Plack::Middleware::Debug::DBIProfile Dancer2::Debugger Moose
