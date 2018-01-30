@@ -10,11 +10,11 @@
             <label>Age:</label> [% customer.age %]
           </p>
           <p><a href="/form/order">order</a></p>
-          [% FOREACH customer.orders %]
+          [% FOREACH order in customer.orders %]
             <p>
-              <label>Product:</label> [% product %]<br>
-              <label>Quantity:</label> [% quantity %]<br>
-              <label>Total:</label> $[% total %]
+              <label>Product:</label> [% order.product %]<br>
+              <label>Quantity:</label> [% order.quantity %]<br>
+              <label>Total:</label> $[% order.total %]
             </p>
           [% END %]
       </div>
