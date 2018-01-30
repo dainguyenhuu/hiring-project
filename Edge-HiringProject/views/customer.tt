@@ -1,0 +1,15 @@
+<div id="page">
+
+      <div id="content">
+        <div id="hiring-project">
+          <a href="/">home</a>
+          <h1>[% title %]</h1>
+          <p><a href="/form/profile">profile</a></p>
+          <p>
+            <label>First Name:</label> [% profile.fname %]<br>
+            <label>Last Name:</label> [% profile.lname %]
+          </p>
+          <p><a href="/form/order">order</a></p>
+      </div>
+    </div>
+</div>

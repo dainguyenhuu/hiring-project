@@ -1,0 +1,87 @@
+
+<div id="page">
+      <div id="sidebar">
+        <ul id="sidebar-items">
+          <li>
+            <h3>Join the community</h3>
+            <ul class="links">
+
+              <li><a href="http://perldancer.org/">PerlDancer</a></li>
+              <li><a href="http://twitter.com/PerlDancer/">Official Twitter</a></li>
+              <li><a href="https://github.com/PerlDancer/Dancer2/">GitHub Community</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <h3>Browse the documentation</h3>
+
+            <ul class="links">
+              <li><a
+              href="https://metacpan.org/pod/Dancer2::Manual">Introduction</a></li>
+              <li><a href="https://metacpan.org/pod/Dancer2::Cookbook">Cookbook</a></li>
+              <li><a
+              href="https://metacpan.org/pod/Dancer2::Tutorial"
+              title="a tutorial to build a small blog engine with Dancer">Tutorial</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <h3>Your application's environment</h3>
+
+            <ul>
+                <li>Location: <span class="filepath">/vagrant/Edge-HiringProject</span></li>
+                <li>Template engine: <span class="app-info">[% settings.template %]</span></li>
+                <li>Logger: <span class="app-info">[% settings.logger %]</span></li>
+                <li>Environment: <span class="app-info">[% settings.environment %]</span></li>
+            </ul>
+
+          </li>
+        </ul>
+
+      </div>
+
+      <div id="content">
+        <div id="hiring-project">
+          <a href="/">home</a>
+          <h1>[% title %]</h1>
+
+          <h2>Congratulations, you've made it past the first interview, here's the second one:</h2>
+          <p>Your mission, should you choose to accept it:
+            <ol>
+              <li>Follow the instructions to get this app up and running. If you're reading this, nice work!</li>
+              <li>Modify the Edge::Customer class to add a new "orders" attribute and populate with data from the <a href="/form/order">order</a> form submission.</li>
+              <li>Modify the <a href="/customer">customer</a> route and view to display all of the <a href="/form/profile">profile</a> and <a href="/form/order">order</a> data from Edge::Customer for the current session.</li>
+              <li>Commit your work to a new branch and push it.</li>
+              <li>BONUS: pre-fill the <a href="/form/profile">profile</a> form with the current session values from Edge::Customer</li>
+            </ol>
+          </p>
+          <p>Some notes
+            <ul>
+              <li>Links for help with the Dancer2 framework can be found on this page.</li>
+              <li>You can also check out the
+                <a href="https://metacpan.org/pod/distribution/DBIx-Class/lib/DBIx/Class/Manual/QuickStart.pod">DBIx::Class Quick Start</a>,
+                the <a href="https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod">Moose Manual</a>,
+                and the <a href="https://metacpan.org/pod/distribution/Template-Toolkit/lib/Template/Manual.pod">Template::Toolkit Manual</a>.
+              </li>
+              <li>This project makes use of the JSON data type of PostgreSQL. Documentation related to this can be found in the <a href="https://www.postgresql.org/docs/9.3/static/functions-json.html">PostgreSQL docs</a> and also on the <a href="http://www.perlmonks.org/?node_id=1162493">PerlMonks forum</a>.</li>
+              <li>There should be enough example code in here to get you going, but pseudo code is also just fine. You don't need a working solution, but you will need to explain your pseudo-code to us in the next interview. You are not expected to become an expert at Perl/Dancer2/DBIx::Class/Moose overnight :)</li>
+              <li>There are debugging panels on the right of this page, use them!</li>
+              <li>If you need to reset the database, run "/vagrant/create-schema"</li>
+              <li>You can access the database from the command line with "psql -U edge"</li>
+              <li>The app watches for changes to files and automatically restarts when needed, but may occassionally need to be stopped with "Ctrl-c" and then started with "plackup -p 7653 -R ./lib bin/app.psgi"</li>
+              <li>Sessions are cleared every time the app restarts</li>
+              <li>Have FUN!</li>
+            </ul>
+          </p>
+
+        </div>
+        <div id="header">
+          <h1>Perl is dancing</h1>
+          <h2>You&rsquo;ve joined the dance floor!</h2>
+        </div>
+
+
+      </div>
+    </div>
+
+</div>

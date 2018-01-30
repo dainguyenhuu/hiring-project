@@ -1,0 +1,6 @@
+#!/bin/bash
+
+psql -c "create database edge"
+psql -c "create role edge with login"
+psql -c "alter database edge owner to edge"
+

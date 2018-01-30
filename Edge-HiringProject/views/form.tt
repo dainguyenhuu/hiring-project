@@ -1,0 +1,18 @@
+
+<div id="page">
+
+      <div id="content">
+        <div id="hiring-project">
+          <a href="/">home</a>
+          <h1>[% title %]</h1>
+
+          <form action="/submit/[% form %]" method="POST">
+          [% FOREACH form_fields %]
+            <label>[% label %]</label> <input type="[% type %]" name="[% name %]"><br>
+          [% END %]
+            <input type="submit" value="SUBMIT">
+          </form>
+
+      </div>
+    </div>
+</div>

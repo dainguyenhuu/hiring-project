@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+
+use lib '/vagrant/Edge-HiringProject/lib';
+
+use Edge::Schema;
+Edge::Schema->connect('dbi:Pg:dbname=edge', 'edge', '',
+    { 
+      on_connect_do => ["drop schema if exists edge cascade", "create schema edge", "set search_path to edge"]
+    }
+  )->deploy();
+
+my $schema = Edge::Schema->connect('dbi:Pg:dbname=edge', 'edge', '');
+
+$schema->resultset('Form')->create({
+    data =>
+      {
+        name => 'profile',
+        title => 'Customer Profile',
+        description => 'Please enter your profile information',
+        fields =>
+          [
+            { name => 'fname', label => 'First Name', type => 'text' },
+            { name => 'lname', label => 'Last Name', type => 'text' },
+          ],
+      },
+  });
+
+$schema->resultset('Form')->create({
+    data =>
+      {
+        name => 'order',
+        title => 'Customer Order',
+        description => 'Please enter your order information',
+        fields =>
+          [
+            { name => 'product', label => 'Product', type => 'text' },
+            { name => 'price', label => 'Price', type => 'number' },
+            { name => 'quantity', label => 'Quantity', type => 'number' },
+          ],
+      },
+  });
+
