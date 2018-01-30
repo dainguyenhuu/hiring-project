@@ -49,10 +49,12 @@
           <p>Your mission, should you choose to accept it:
             <ol>
               <li>Follow the instructions to get this app up and running. If you're reading this, nice work!</li>
-              <li>Modify the Edge::Customer class to add a new "orders" attribute and populate with data from the <a href="/form/order">order</a> form submission.</li>
-              <li>Modify the <a href="/customer">customer</a> route and view to display all of the <a href="/form/profile">profile</a> and <a href="/form/order">order</a> data from Edge::Customer for the current session.</li>
+              <li>Create the new Edge::Order class (lib/Edge/Order.pm) to represent an <a href="/form/order">order</a> form submission.</li>
+              <li>Implement the "orders" attribute in the Edge::Customer class (lib/Edge/Customer.pm).</li>
+              <li>The <a href="/customer">customer</a> view (views/customer.tt) should now display the <a href="/form/profile">profile</a> and <a href="/form/order">order</a> form data from Edge::Customer for the current session.</li>
               <li>Commit your work and submit a pull request.</li>
               <li>BONUS: pre-fill the <a href="/form/profile">profile</a> form with the current session values from Edge::Customer</li>
+              <li>BONUS: implement the 'age' attribute in Edge::Customer (hint: use Time::Piece)</li>
             </ol>
           </p>
           <p>Some notes

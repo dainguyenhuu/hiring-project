@@ -53,7 +53,7 @@ get '/customer' => sub {
     my $customer = Edge::Customer->new( schema => schema('edge'), id => session->id );
     template 'customer' => {
       'title' => 'Customer Information: ' . session->id,
-      'profile' => $customer->profile,
+      'customer' => $customer,
     };
 };
 

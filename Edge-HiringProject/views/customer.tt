@@ -6,10 +6,17 @@
           <h1>[% title %]</h1>
           <p><a href="/form/profile">profile</a></p>
           <p>
-            <label>First Name:</label> [% profile.fname %]<br>
-            <label>Last Name:</label> [% profile.lname %]
+            <label>Name:</label> [% customer.name %]<br>
+            <label>Age:</label> [% customer.age %]
           </p>
           <p><a href="/form/order">order</a></p>
+          [% FOREACH customer.orders %]
+            <p>
+              <label>Product:</label> [% product %]<br>
+              <label>Quantity:</label> [% quantity %]<br>
+              <label>Total:</label> $[% total %]
+            </p>
+          [% END %]
       </div>
     </div>
 </div>

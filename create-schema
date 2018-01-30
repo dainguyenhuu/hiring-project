@@ -21,6 +21,7 @@ $schema->resultset('Form')->create({
           [
             { name => 'fname', label => 'First Name', type => 'text' },
             { name => 'lname', label => 'Last Name', type => 'text' },
+            { name => 'birthdate', label => 'Birth Date', type => 'date' },
           ],
       },
   });

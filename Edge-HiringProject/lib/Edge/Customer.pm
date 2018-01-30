@@ -14,13 +14,13 @@ has 'id' => (
   required => 1,
 );
 
-has 'profile' => (
+has 'profile_form' => (
   is => 'ro',
   isa => 'HashRef',
   lazy => 1,
   default => sub {
     my $self = shift;
-    my $profile = $self->schema->resultset('FormSubmission')->search(
+    my $profile_form = $self->schema->resultset('FormSubmission')->search(
                     {
                       'data' => \["->>'id' = ?", $self->id],
                     },
@@ -28,15 +28,34 @@ has 'profile' => (
                       'order_by' => { -desc => 'id' },
                     },
                   )->first;
-    if ($profile) {
-      return $profile->data;
+    if ($profile_form && ref $profile_form->data) {
+      return $profile_form->data;
     }
     else {
-      return {
-        fname => '--not set--',
-        lname => '--not set--',
-      };
+      return {};
     }
+  },
+);
+
+has 'name' => (
+  is => 'ro',
+  isa => 'Str',
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    my $name = ($self->profile_form->{fname} || '') . ' ' . ($self->profile_form->{lname} || '');
+    if ($name eq ' ') { return '--not set--'; }
+    return $name;
+  },
+);
+
+has 'orders' => (
+  is => 'ro',
+  isa => 'ArrayRef[Edge::Order]',
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    return [];
   },
 );
 
