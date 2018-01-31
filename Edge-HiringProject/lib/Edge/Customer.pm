@@ -1,5 +1,7 @@
 package Edge::Customer;
 
+use Time::Piece;
+use Edge::Order;
 use Moose;
 
 has 'schema' => (
@@ -38,6 +40,38 @@ has 'profile_form' => (
   },
 );
 
+has 'orders' => (
+  is => 'ro',
+  isa => 'ArrayRef[Edge::Order]',
+  lazy => 1,
+  default => sub {
+    my $self = shift;
+    my @orders;
+    # Preparing the resultset from database
+    my $order_rs = $self->schema->resultset('FormSubmission')->search(
+        {
+          'data' => \["->>'form' = 'order'"],
+        },{
+          # Newest order on top
+          'order_by' => { -desc => 'id' },
+        },
+    );
+
+    # Run the query and start getting data
+    while (my $order = $order_rs->next) {
+      # Convert from HASHRef to data
+      my $awsome = $order->data;
+      # Push the data into a new Order object
+      my $order_fetch = Edge::Order->new(price => $awsome->{price}, product => $awsome->{product}, quantity => $awsome->{quantity});
+      # Push the data into an array
+      push @orders, $order_fetch;
+    }
+    # Return an array reference
+    return \@orders;
+
+  },
+);
+
 has 'name' => (
   is => 'ro',
   isa => 'Str',
@@ -50,16 +84,25 @@ has 'name' => (
   },
 );
 
-has 'orders' => (
+has 'age' => (
   is => 'ro',
-  isa => 'ArrayRef[Edge::Order]',
+  isa => 'Int',
   lazy => 1,
   default => sub {
     my $self = shift;
-    return [];
+    my $birthdate = $self->profile_form->{birthdate};
+    # Get year out of birthdate
+    my $year = Time::Piece->strptime($birthdate, "%Y-%m-%d")->year;
+    # Condition to show nothing till user input their birthdate
+    if ($self->name eq '--not set--') {
+      return 0;
+    } else {
+      my $age = localtime->year - $year;
+      return $age;
+    }
+
   },
 );
-
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
