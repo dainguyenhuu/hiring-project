@@ -23,8 +23,8 @@ get '/form/:form_name' => sub {
                 })->single;
 
     if ($form) {
-      # Check if the form is profile
-      if ($form_name eq 'profile') {
+
+
         # Get user data
         my $profile_form = $schema->resultset('FormSubmission')->search(
                         {
@@ -36,7 +36,8 @@ get '/form/:form_name' => sub {
                         },
                       )->first;
         # Check if user data is filled
-        if ($profile_form) {
+        # Check if the form is profile
+        if ($profile_form && $form_name eq 'profile') {
             # Get the data into an array
             my @custom = ($profile_form->data->{fname}, $profile_form->data->{lname}, $profile_form->data->{birthdate});
             # Push the customer data to the template
@@ -48,8 +49,7 @@ get '/form/:form_name' => sub {
               # Added a function to loop though the customer data
               'customerinfo' => sub { my $first = shift @custom; return $first},
             };
-        }
-      } else {
+        } else {
         template 'form' => {
           'form' => $form_name,
           'title' => $form->data->{title},
