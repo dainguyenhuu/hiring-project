@@ -2,9 +2,8 @@ package Edge::HiringProject;
 use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Debugger;
+use Dancer2::Core::Cookie;
 use Edge::Customer;
-
-my $cookie;
 
 our $VERSION = '0.1';
 get '/' => sub {
@@ -21,41 +20,28 @@ get '/form/:form_name' => sub {
                   'data' => \"->>'name' = '$form_name'"
                 })->single;
 
+    my $profile = $schema->resultset('FormSubmission')->search(
+                            { 'data' => \["->>'form' = 'profile'"] },
+                            { 'order_by' => { -desc => 'id' } })
+                            ->first;
+    my @customer;
+
+    if ($profile) {
+      my $c = $profile->data;
+      @customer = ($c->{fname},$c->{lname},$c->{birthdate});
+    }
+
     if ($form) {
 
-
-        # Get user data
-        my $profile_form = $schema->resultset('FormSubmission')->search(
-                        {
-                          'data' => \["->>'id' = ?", session->id],
-                          'data' => \["->>'form' = 'profile'"],
-                        },
-                        {
-                          'order_by' => { -desc => 'id' },
-                        },
-                      )->first;
-        # Check if user data is filled
-        # Check if the form is profile
-        if ($profile_form && $form_name eq 'profile') {
-            # Get the data into an array
-            my @custom = ($profile_form->data->{fname}, $profile_form->data->{lname}, $profile_form->data->{birthdate});
-            # Push the customer data to the template
-            template 'form' => {
-              'form' => $form_name,
-              'title' => $form->data->{title},
-              'form_description' => $form->data->{description},
-              'form_fields' => $form->data->{fields},
-              # Added a function to loop though the customer data
-              'customerinfo' => sub { my $first = shift @custom; return $first},
-            };
-        } else {
         template 'form' => {
           'form' => $form_name,
           'title' => $form->data->{title},
           'form_description' => $form->data->{description},
           'form_fields' => $form->data->{fields},
+          'customerinfo' => sub {
+            if ($form_name eq 'profile') { my $first = shift @customer; return $first }
+          },
         };
-      }
     } else {
       redirect '/';
     }
@@ -82,6 +68,7 @@ post '/submit/:form_name' => sub {
 
 get '/customer' => sub {
     my $customer = Edge::Customer->new( schema => schema('edge'), id => session->id );
+
     template 'customer' => {
       'title' => 'Customer Information: ' . session->id,
       'customer' => $customer,
