@@ -2,7 +2,6 @@ package Edge::HiringProject;
 use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Debugger;
-use Dancer2::Core::Cookie;
 use Edge::Customer;
 
 my $cookie;
@@ -83,9 +82,6 @@ post '/submit/:form_name' => sub {
 
 get '/customer' => sub {
     my $customer = Edge::Customer->new( schema => schema('edge'), id => session->id );
-    $cookie = Dancer2::Core::Cookie->new(
-           name => 'customer', value => $customer,
-       );
     template 'customer' => {
       'title' => 'Customer Information: ' . session->id,
       'customer' => $customer,

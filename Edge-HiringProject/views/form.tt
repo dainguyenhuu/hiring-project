@@ -5,9 +5,8 @@
         <div id="hiring-project">
           <a href="/">home</a>
           <h1>[% title %]</h1>
-
+          
           <form action="/submit/[% form %]" method="POST">
-          [% i = 0 %]
           [% FOREACH form_fields %]
             <label>[% label %]</label> <input type="[% type %]" name="[% name %]" value="[% customerinfo %]"><br>
           [% END %]
