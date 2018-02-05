@@ -2,8 +2,9 @@ package Edge::HiringProject;
 use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::Debugger;
-use Dancer2::Core::Cookie;
 use Edge::Customer;
+
+set session => 'YAML';
 
 our $VERSION = '0.1';
 get '/' => sub {
@@ -20,17 +21,6 @@ get '/form/:form_name' => sub {
                   'data' => \"->>'name' = '$form_name'"
                 })->single;
 
-    my $profile = $schema->resultset('FormSubmission')->search(
-                            { 'data' => \["->>'form' = 'profile'"] },
-                            { 'order_by' => { -desc => 'id' } })
-                            ->first;
-    my @customer;
-
-    if ($profile) {
-      my $c = $profile->data;
-      @customer = ($c->{fname},$c->{lname},$c->{birthdate});
-    }
-
     if ($form) {
 
         template 'form' => {
@@ -39,7 +29,7 @@ get '/form/:form_name' => sub {
           'form_description' => $form->data->{description},
           'form_fields' => $form->data->{fields},
           'customerinfo' => sub {
-            if ($form_name eq 'profile') { my $first = shift @customer; return $first }
+            if ($form_name eq 'profile') { return session('customer')->profile_form }
           },
         };
     } else {
@@ -68,7 +58,8 @@ post '/submit/:form_name' => sub {
 
 get '/customer' => sub {
     my $customer = Edge::Customer->new( schema => schema('edge'), id => session->id );
-
+    session customer => $customer;
+    
     template 'customer' => {
       'title' => 'Customer Information: ' . session->id,
       'customer' => $customer,

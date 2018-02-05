@@ -5,10 +5,14 @@
         <div id="hiring-project">
           <a href="/">home</a>
           <h1>[% title %]</h1>
-          
+
           <form action="/submit/[% form %]" method="POST">
           [% FOREACH form_fields %]
-            <label>[% label %]</label> <input type="[% type %]" name="[% name %]" value="[% customerinfo %]"><br>
+            <label>[% label %]</label> <input type="[% type %]" name="[% name %]"
+            [% IF (form == 'profile') %]
+              value="[% customerinfo.$name %]"
+            [% END %]
+            ><br>
           [% END %]
             <input type="submit" value="SUBMIT">
           </form>
